@@ -6,7 +6,7 @@
   font-family: "Carton Six";
   font-style: normal;
   font-weight: 400;
-  src: local(""), url("/fonts/Carton_Six.ttf") format("ttf");
+  src: url("/fonts/Carton_Six.ttf");
 }
 
 .montserrat {
