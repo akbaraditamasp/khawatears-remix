@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Carton Six";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url("/fonts/Carton_Six.ttf") format("ttf");
+}
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.carton {
+  font-family: "Carton Six";
+}
+
+.source {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  @apply text-gray-600;
+}
+
+.unstyled p {
+  margin-top: 12px;
+}
+
+@layer components {
+  .w-16-9 {
+    padding-top: 31.25%;
+    position: relative;
+  }
+
+  .w-1-1 {
+    padding-top: 100%;
+    position: relative;
+  }
+
+  .w-16-9 img,.w-1-1 img {
+    @apply absolute top-0 left-0 w-full h-full object-cover;
+  }
+
+  .w-screen-lg {
+    width: 900px;
+  }
+
+  .w-screen-xl {
+    width: 1024px;
+  }
+
+  .container {
+    @apply w-full lg:w-screen-lg xl:w-screen-xl px-5 md:px-8;
+  }
+}
