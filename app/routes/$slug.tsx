@@ -44,7 +44,7 @@ export default function Detail() {
   return (
     <div className="flex justify-center py-12 mb-12">
       <div className="container flex flex-col lg:flex-row">
-        <div className="w-1/3">
+        <div className="w-full lg:w-1/3">
           <div className="p-5 bg-white rounded-sm">
             <div
               className={`${
