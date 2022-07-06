@@ -17,6 +17,8 @@ export const meta: MetaFunction = ({ data }) => {
       ? "https://image-webp.herokuapp.com/?width=1024&height=320&url=" +
         encodeURIComponent(data?.sliders[0]?.image)
       : undefined,
+    "og:type": "website",
+    "og:description": data?.basicInfo?.short_description,
   };
 };
 
