@@ -11,6 +11,12 @@ import sliders from "~/loader/sliders";
 export const meta: MetaFunction = ({ data }) => {
   return {
     title: `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
+    "og:title": `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
+    "og:url": data.url,
+    "og:image": data?.sliders?.length
+      ? "https://image-webp.herokuapp.com/?width=1024&height=320&url=" +
+        encodeURIComponent(data?.sliders[0]?.image)
+      : undefined,
   };
 };
 
@@ -34,6 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     sliders: getSliders,
     products: getProducts,
     query,
+    url: request.url,
   });
 };
 

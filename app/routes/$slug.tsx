@@ -10,10 +10,16 @@ import { FaShoppingBag, FaTimes } from "react-icons/fa";
 export const meta: MetaFunction = ({ data }) => {
   return {
     title: `Jual ${data?.product?.product_name}`,
+    "og:title": `Jual ${data?.product?.product_name}`,
+    "og:url": data.url,
+    "og:image": data?.product?.images?.length
+      ? "https://image-webp.herokuapp.com/?width=700&height=700&url=" +
+        encodeURIComponent(((data.product?.images || [""]) as Array<any>)[0])
+      : undefined,
   };
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
   let basicInfo: any = null;
   let getProduct: any = null;
 
@@ -27,6 +33,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({
     basicInfo,
     product: getProduct,
+    url: request.url,
   });
 };
 
@@ -76,7 +83,7 @@ export default function Detail() {
                   className="absolute top-0 right-0 p-5"
                   onClick={() => setShow(false)}
                 >
-                  <FaTimes size={24}/>
+                  <FaTimes size={24} />
                 </button>
               ) : null}
             </div>

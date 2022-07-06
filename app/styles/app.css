@@ -674,10 +674,6 @@ video {
   z-index: 30;
 }
 
-.m-5 {
-  margin: 1.25rem;
-}
-
 .ml-0 {
   margin-left: 0px;
 }
@@ -790,10 +786,6 @@ video {
   width: 1.5rem;
 }
 
-.w-1\/3 {
-  width: 33.333333%;
-}
-
 .w-auto {
   width: auto;
 }
@@ -886,11 +878,6 @@ video {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-y {
-  border-top-width: 1px;
-  border-bottom-width: 1px;
 }
 
 .border-t {
@@ -1107,7 +1094,7 @@ video {
 
   font-weight: 400;
 
-  src: local(""), url("/fonts/Carton_Six.ttf") format("ttf");
+  src: url("/fonts/Carton_Six.ttf");
 }
 
 .montserrat {
