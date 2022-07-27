@@ -8,7 +8,7 @@ type Props = {
 export default function ProductItem({ item }: Props) {
   return (
     <div className="bg-white p-3 lg:p-5 rounded flex flex-col border-2 border-transparent hover:border-primary-base relative">
-      <div className="w-1-1 bg-gray-200 rounded mb-5">
+      <div className="w-1-1 bg-gray-400 rounded mb-5">
         <img
           src={item.image}
           title={item.product_name}

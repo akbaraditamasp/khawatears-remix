@@ -61,7 +61,7 @@ export default function Detail() {
               } top-0 left-0 bg-white z-30 flex justify-center items-center`}
             >
               <div className={show ? "w-full lg:w-1/3" : "w-full"}>
-                <div className="w-1-1 bg-gray-200 rounded-sm">
+                <div className="w-1-1 bg-gray-400 rounded-sm">
                   <img
                     src={
                       ((data.product?.images || [""]) as Array<any>)[active].url
@@ -90,7 +90,7 @@ export default function Detail() {
               {((data.product?.images || []) as Array<any>).map(
                 (item, index) => (
                   <div
-                    className={`w-1-1 bg-gray-200 border-2 ${
+                    className={`w-1-1 bg-gray-400 border-2 ${
                       active === index
                         ? "border-primary-base"
                         : "border-transparent"
