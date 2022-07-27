@@ -64,10 +64,7 @@ export default function Detail() {
                 <div className="w-1-1 bg-gray-200 rounded-sm">
                   <img
                     src={
-                      "https://image-webp.herokuapp.com/?width=700&height=700&url=" +
-                      encodeURIComponent(
-                        ((data.product?.images || [""]) as Array<any>)[active]
-                      )
+                      ((data.product?.images || [""]) as Array<any>)[active].url
                     }
                     alt={data.product?.product_name}
                     title={data.product.product_name}
@@ -101,10 +98,7 @@ export default function Detail() {
                     key={`${index}`}
                   >
                     <img
-                      src={
-                        "https://image-webp.herokuapp.com/?width=700&height=700&url=" +
-                        encodeURIComponent(item)
-                      }
+                      src={item.url}
                       alt={data.product?.product_name}
                       title={data.product.product_name}
                     />
@@ -145,12 +139,7 @@ export default function Detail() {
           </div>
           <a
             target="_blank"
-            href={`https://wa.me/${
-              data.basicInfo?.whatsapp_no
-            }?text=${data.basicInfo?.whatsapp_order_text.replace(
-              "%product%",
-              data.product?.product_name
-            )}`}
+            href={`https://wa.me`}
             className="inline-flex items-center py-3 px-5 bg-primary-base text-white mb-12 rounded-sm"
             title={`Pesan ${data.product?.product_name} via Whatsapp`}
           >
@@ -170,9 +159,10 @@ export default function Detail() {
             </div>
           ))}
           <h3 className="text-gray-800 font-bold mt-8 mb-3">Description</h3>
-          <p className="unstyled text-justify">
-            <ReactMarkdown children={data.product.description} />
-          </p>
+          <div
+            className="unstyled text-justify"
+            dangerouslySetInnerHTML={{ __html: data?.product?.description }}
+          />
         </div>
       </div>
     </div>

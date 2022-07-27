@@ -90,13 +90,13 @@ export default function Layout({ children, basicInformation, h1 }: Props) {
           <div className="mt-8 lg:mt-0 ml-0 lg:ml-auto">
             <h5 className="font-bold text-white">Temukan Kami</h5>
             <div className="flex mt-2">
-              {((basicInformation?.social_media || []) as Array<any>).map(
+              {((basicInformation?.social || []) as Array<any>).map(
                 (social, index) => (
                   <SocialLink
                     key={`${index}`}
                     icon={social.icon}
                     name={social.name}
-                    url={social.url}
+                    url={social.link}
                   />
                 )
               )}

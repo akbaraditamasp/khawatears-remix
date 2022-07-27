@@ -3,18 +3,9 @@ import { service } from "~/service";
 const product = (slug: string) =>
   new Promise((resolve, reject) => {
     service
-      .get(`/products?filters[slug]=${slug}`)
+      .get(`/product/slug/${slug}`)
       .then((response) => {
-        if (!response.data.data.length) {
-          resolve({});
-          return;
-        }
-
-        const item = response.data.data[0];
-        resolve({
-          id: item.id,
-          ...item.attributes,
-        });
+        resolve(response.data);
       })
       .catch((e) => {
         if (e.response?.status === 500) {

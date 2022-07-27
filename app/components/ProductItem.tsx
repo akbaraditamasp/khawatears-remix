@@ -10,11 +10,7 @@ export default function ProductItem({ item }: Props) {
     <div className="bg-white p-3 lg:p-5 rounded flex flex-col border-2 border-transparent hover:border-primary-base relative">
       <div className="w-1-1 bg-gray-200 rounded mb-5">
         <img
-          src={
-            "https://image-webp.herokuapp.com/" +
-            "?width=320&height=320&url=" +
-            encodeURIComponent(item.images[0] || "")
-          }
+          src={item.image}
           title={item.product_name}
           alt={item.product_name}
           placeholder="blur"

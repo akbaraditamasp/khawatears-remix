@@ -3,9 +3,9 @@ import { service } from "~/service";
 const basicInformation = () =>
   new Promise((resolve, reject) => {
     service
-      .get("/basic-information")
+      .get("/store")
       .then((response) => {
-        resolve(response.data.data.attributes);
+        resolve(response.data);
       })
       .catch((e) => {
         if (e.response?.status === 500) {

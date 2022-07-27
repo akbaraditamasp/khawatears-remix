@@ -6,13 +6,13 @@ export default function SliderItem({ item }: Props) {
   return (
     <a
       href={item.url}
-      title={item.title}
+      title={item.name}
       className="w-16-9 bg-gray-100 overflow-hidden w-full flex-shrink-0"
     >
       <img
-        src={"https://image-webp.herokuapp.com/?width=1024&height=320&url=" + encodeURIComponent(item.image)}
+        src={item.image.url}
         title={item.title}
-        alt={item.title}
+        alt={item.name}
         placeholder="blur"
       />
     </a>
