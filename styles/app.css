@@ -10,7 +10,7 @@
 }
 
 .montserrat {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .carton {
@@ -30,6 +30,32 @@ body {
   margin-top: 12px;
 }
 
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border-width: 6px;
+  @apply border-x-transparent border-y-gray-700;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @layer components {
   .w-16-9 {
     padding-top: 31.25%;
@@ -41,7 +67,8 @@ body {
     position: relative;
   }
 
-  .w-16-9 img,.w-1-1 img {
+  .w-16-9 img,
+  .w-1-1 img {
     @apply absolute top-0 left-0 w-full h-full object-cover;
   }
 

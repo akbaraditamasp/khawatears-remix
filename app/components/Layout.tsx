@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FaShoppingBag } from "react-icons/fa";
 import { GoSearch, GoX } from "react-icons/go";
+import { CartContext } from "~/cart";
 import useDebounce from "~/useDebounce";
 import SocialLink from "./SocialLink";
 
@@ -16,6 +18,7 @@ export default function Layout({ children, basicInformation, h1 }: Props) {
   const [query, setQuery] = useState("");
   const debounce = useDebounce({ callback: (text: string) => setQuery(text) });
   const navigate = useNavigate();
+  const { carts } = useContext(CartContext)!;
 
   const H1 = h1 ? "h1" : "h2";
 
@@ -43,37 +46,51 @@ export default function Layout({ children, basicInformation, h1 }: Props) {
             </Link>
           </H1>
           <div
-            className={`ml-0 lg:ml-auto h-16 lg:w-1/3 absolute lg:static top-0 flex flex-col justify-center ${
+            className={`z-20 bg-white ml-0 md:ml-auto h-16 md:w-1/3 absolute md:static top-0 flex flex-col justify-center ${
               showSearch
-                ? "w-full left-0 right-auto mr-0 px-5"
-                : "w-10 left-auto right-0 mr-5 px-0"
+                ? "w-full left-0 mr-0 px-5"
+                : "w-10 left-auto mr-5 px-0"
             } transition-all lg:mr-0 lg:px-0`}
+            style={{
+              right: showSearch ? "auto" : "3.25rem",
+            }}
           >
             <div
               className={`relative h-10 border ${
                 showSearch ? "w-full" : "w-10"
-              } lg:w-full`}
+              } md:w-full`}
             >
               <button
                 type="button"
-                className="flex lg:hidden absolute top-0 right-0 h-10 w-10 justify-center items-center text-gray-500 rounded-sm"
+                className="flex md:hidden absolute top-0 right-0 h-10 w-10 justify-center items-center text-gray-500 rounded-sm"
                 onClick={() => setShowSearch((value) => !value)}
               >
                 {showSearch ? <GoX /> : <GoSearch />}
               </button>
-              <span className="hidden lg:flex absolute top-0 right-0 h-10 w-10 justify-center items-center text-gray-500 rounded-sm">
+              <span className="hidden md:flex absolute top-0 right-0 h-10 w-10 justify-center items-center text-gray-500 rounded-sm">
                 <GoSearch />
               </span>
               <input
                 type="text"
                 className={`${
                   showSearch ? "block" : "hidden"
-                } lg:block rounded-sm h-full w-full px-3 pr-10`}
+                } md:block rounded-sm h-full w-full px-3 pr-10`}
                 placeholder="Cari disini..."
                 onChange={(e) => debounce(e.target.value)}
               />
             </div>
           </div>
+          <Link
+            to="/cart"
+            className="w-10 h-10 relative flex justify-center items-center hover:bg-gray-100 ml-auto md:ml-3 lg:ml-5 border rounded-sm"
+          >
+            <FaShoppingBag />
+            {carts.length ? (
+              <div className="absolute top-0 right-0 -mt-1 -mr-1 bg-red-400 w-6 h-6 rounded-full flex justify-center items-center text-white text-xs">
+                {carts.length > 9 ? "9+" : carts.length}
+              </div>
+            ) : null}
+          </Link>
         </div>
       </div>
       <div className="flex-1">{children}</div>

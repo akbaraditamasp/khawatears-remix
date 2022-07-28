@@ -8,7 +8,9 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { useState } from "react";
+import { CartProvider } from "./cart";
 import Layout from "./components/Layout";
+import { PaymentProvider } from "./payment-data";
 import styles from "./styles/app.css";
 
 export const meta: MetaFunction = () => ({
@@ -45,9 +47,16 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout basicInformation={data.basicInformation} h1={data.h1 || false}>
-          <Outlet context={{ data, setData }} />
-        </Layout>
+        <PaymentProvider>
+          <CartProvider>
+            <Layout
+              basicInformation={data.basicInformation}
+              h1={data.h1 || false}
+            >
+              <Outlet context={{ data, setData }} />
+            </Layout>
+          </CartProvider>
+        </PaymentProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

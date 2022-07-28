@@ -1,11 +1,15 @@
 import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { useLoaderData, useOutletContext } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { Link, useLoaderData, useOutletContext } from "@remix-run/react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { FaMinus, FaPlus, FaShoppingBag, FaTimes } from "react-icons/fa";
+import { GoCheck } from "react-icons/go";
 import NumberFormat from "react-number-format";
+import { CartContext } from "~/cart";
+import FancyAlert, { FancyAlertAction } from "~/components/FancyAlert";
+import Modal, { ModalType } from "~/components/Modal";
 import basicInformation from "~/loader/basic-information";
 import product from "~/loader/product";
-import ReactMarkdown from "react-markdown";
-import { FaShoppingBag, FaTimes } from "react-icons/fa";
 
 export const meta: MetaFunction = ({ data }) => {
   return {
@@ -39,11 +43,45 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   });
 };
 
+type AddCart = {
+  qty: string | number;
+  message: string;
+};
+
 export default function Detail() {
   const data = useLoaderData();
   const [active, setActive] = useState(0);
   const [show, setShow] = useState(false);
   const { setData }: any = useOutletContext();
+  const _modal = useRef<null | ModalType>(null);
+  const _alert = useRef<null | FancyAlertAction>(null);
+  const { cartsDispatch } = useContext(CartContext)!;
+
+  const { control, register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      qty: "1",
+      message: "",
+    },
+  });
+
+  const onAddCart = ({ qty, message }: AddCart) => {
+    cartsDispatch({
+      type: "ADD",
+      payload: {
+        id: data.product?.id,
+        qty: Number(qty),
+        message,
+      },
+    });
+
+    _alert.current?.toggle();
+    _modal.current?.toggle();
+    reset({
+      qty: "1",
+      message: "",
+    });
+  };
+
   useEffect(() => {
     setData({
       basicInformation: data.basicInfo,
@@ -137,15 +175,13 @@ export default function Detail() {
               </span>
             ) : null}
           </div>
-          <a
-            target="_blank"
-            href={`https://wa.me`}
+          <button
+            onClick={() => _modal.current?.toggle()}
             className="inline-flex items-center py-3 px-5 bg-primary-base text-white mb-12 rounded-sm"
-            title={`Pesan ${data.product?.product_name} via Whatsapp`}
           >
             <FaShoppingBag className="inline-table mr-2" />
-            Beli Sekarang
-          </a>
+            Tambah ke Keranjang
+          </button>
           {((data.product.spec || []) as Array<any>).map((item, index) => (
             <div
               className={
@@ -165,6 +201,87 @@ export default function Detail() {
           />
         </div>
       </div>
+      <Modal ref={_modal} title="Tambahkan ke Keranjang">
+        <Fragment>
+          <label>Keterangan</label>
+          <textarea
+            className="border rounded-sm p-3 block w-full mt-1"
+            placeholder="Ukuran M ya"
+            {...register("message")}
+          ></textarea>
+          <div className="mt-5 pt-5 border-t -mx-5 px-5 flex items-center">
+            <Controller
+              control={control}
+              rules={{ required: true, min: 1 }}
+              name="qty"
+              render={({ field: { value, onChange } }) => (
+                <div className="flex items-center mr-5">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onChange(
+                        `${Number(value) > 1 ? Number(value) - 1 : value}`
+                      )
+                    }
+                    className="text-xs rounded-sm bg-gray-500 text-white w-10 h-10 flex justify-center items-center"
+                  >
+                    <FaMinus />
+                  </button>
+                  <input
+                    type="number"
+                    className="w-24 h-10 mx-3 rounded-sm bg-white border px-3 text-center"
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    onBlur={(e) =>
+                      onChange(
+                        Number(e.target.value) >= 1 ? e.target.value : "1"
+                      )
+                    }
+                  />
+                  <button
+                    type="button"
+                    onClick={() => onChange(`${Number(value) + 1}`)}
+                    className="text-xs rounded-sm bg-gray-500 text-white w-10 h-10 flex justify-center items-center"
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+              )}
+            />
+            <button
+              type="button"
+              className="h-10 flex-1 text-white bg-primary-base rounded-sm flex justify-center items-center ml-auto"
+              onClick={handleSubmit(onAddCart)}
+            >
+              Tambah
+            </button>
+          </div>
+        </Fragment>
+      </Modal>
+      <FancyAlert
+        title="Berhasil"
+        message="Item berhasil ditambahkan ke keranjang anda"
+        footer={
+          <div className="flex p-5 mt-5">
+            <button
+              type="button"
+              className="flex-1 py-3 px-5 rounded-sm bg-gray-300"
+              onClick={(e) => _alert.current?.toggle()}
+            >
+              Lanjut Belanja
+            </button>
+            <Link
+              to={"/checkout"}
+              type="button"
+              className="ml-3 flex-1 py-3 px-5 rounded-sm bg-primary-base text-white text-center"
+            >
+              Checkout
+            </Link>
+          </div>
+        }
+        type="success"
+        ref={_alert}
+      />
     </div>
   );
 }
