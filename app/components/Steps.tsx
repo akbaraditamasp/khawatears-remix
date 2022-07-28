@@ -15,7 +15,7 @@ const StepWay = ({ active, children, to }: StepWayProps) => {
     <Link
       to={to}
       type="button"
-      className={`flex-1 lg:flex-none text-center py-3 px-8 h-16 flex items-center ${
+      className={`flex-1 lg:flex-none text-center py-3 px-8 h-16 flex justify-center items-center rounded-sm ${
         active
           ? "font-bold text-white bg-primary-base"
           : "bg-white font-normal text-gray-600"

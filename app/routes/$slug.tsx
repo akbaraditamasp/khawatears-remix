@@ -265,7 +265,7 @@ export default function Detail() {
           <div className="flex p-5 mt-5">
             <button
               type="button"
-              className="flex-1 py-3 px-5 rounded-sm bg-gray-300"
+              className="flex-1 h-10 flex justify-center text-center items-center py-3 px-5 rounded-sm bg-gray-300"
               onClick={(e) => _alert.current?.toggle()}
             >
               Lanjut Belanja
@@ -273,7 +273,7 @@ export default function Detail() {
             <Link
               to={"/checkout"}
               type="button"
-              className="ml-3 flex-1 py-3 px-5 rounded-sm bg-primary-base text-white text-center"
+              className="ml-3 flex-1 flex justify-center items-center h-10 py-3 px-5 rounded-sm bg-primary-base text-white text-center"
             >
               Checkout
             </Link>
