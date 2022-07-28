@@ -75,7 +75,8 @@ export default function cart() {
                   </div>
                   <div className="text-xs lg:text-sm">{item.message}</div>
                 </div>
-                <div className="ml-5">
+                <div>x{item.qty}</div>
+                <div className="ml-5 w-1/4 text-right">
                   <NumberFormat
                     displayType="text"
                     prefix="Rp"
