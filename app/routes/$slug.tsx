@@ -3,7 +3,6 @@ import { Link, useLoaderData, useOutletContext } from "@remix-run/react";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaMinus, FaPlus, FaShoppingBag, FaTimes } from "react-icons/fa";
-import { GoCheck } from "react-icons/go";
 import NumberFormat from "react-number-format";
 import { CartContext } from "~/cart";
 import FancyAlert, { FancyAlertAction } from "~/components/FancyAlert";
@@ -17,8 +16,7 @@ export const meta: MetaFunction = ({ data }) => {
     "og:title": `Jual ${data?.product?.product_name}`,
     "og:url": data.url,
     "og:image": data?.product?.images?.length
-      ? "https://image-webp.herokuapp.com/?width=700&height=700&url=" +
-        encodeURIComponent(((data.product?.images || [""]) as Array<any>)[0])
+      ? data.product?.images[0].url
       : undefined,
     "og:type": "website",
     "og:description": data?.product?.description.substr(0, 200),

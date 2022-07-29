@@ -13,10 +13,7 @@ export const meta: MetaFunction = ({ data }) => {
     title: `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
     "og:title": `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
     "og:url": data.url,
-    "og:image": data?.sliders?.length
-      ? "https://image-webp.herokuapp.com/?width=1024&height=320&url=" +
-        encodeURIComponent(data?.sliders[0]?.image)
-      : undefined,
+    "og:image": data?.sliders?.length ? data?.sliders[0]?.image.url : undefined,
     "og:type": "website",
     "og:description": data?.basicInfo?.short_description,
   };
