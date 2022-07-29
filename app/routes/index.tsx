@@ -11,6 +11,7 @@ import sliders from "~/loader/sliders";
 export const meta: MetaFunction = ({ data }) => {
   return {
     title: `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
+    description: data?.basicInfo?.short_description,
     "og:title": `${data?.basicInfo?.store_name} | ${data?.basicInfo?.tagline}`,
     "og:url": data.url,
     "og:image": data?.sliders?.length ? data?.sliders[0]?.image.url : undefined,

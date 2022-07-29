@@ -13,6 +13,9 @@ import product from "~/loader/product";
 export const meta: MetaFunction = ({ data }) => {
   return {
     title: `Jual ${data?.product?.product_name}`,
+    descrption: ((data?.product?.description || "") as string)
+      .replace(/<([^</> ]+)[^<>]*?>[^<>]*?<\/\1> */gm, "")
+      .substring(0, 200),
     "og:title": `Jual ${data?.product?.product_name}`,
     "og:url": data.url,
     "og:image": data?.product?.images?.length
