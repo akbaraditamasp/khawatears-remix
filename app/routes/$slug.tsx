@@ -14,7 +14,8 @@ export const meta: MetaFunction = ({ data }) => {
   return {
     title: `Jual ${data?.product?.product_name}`,
     descrption: ((data?.product?.description || "") as string)
-      .replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, "")
+      .replace(/<[^>]*(>|$)/g, "")
+      .replace(/&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, " ")
       .substring(0, 200),
     "og:title": `Jual ${data?.product?.product_name}`,
     "og:url": data.url,
