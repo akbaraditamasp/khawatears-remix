@@ -23,7 +23,10 @@ export const meta: MetaFunction = ({ data }) => {
       ? data.product?.images[0].url
       : undefined,
     "og:type": "website",
-    "og:description": data?.product?.description.substr(0, 200),
+    "og:description": ((data?.product?.description || "") as string)
+      .replace(/<[^>]*(>|$)/g, "")
+      .replace(/&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, " ")
+      .substring(0, 200),
   };
 };
 
